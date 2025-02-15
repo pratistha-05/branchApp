@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.branchdemo.R
 import com.example.branchdemo.data.model.Item
 
-class ItemAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private val itemList: List<Item>, private val itemClickListener: (Item) -> Unit
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
   class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val itemName: TextView = itemView.findViewById(R.id.item_name)
@@ -24,6 +25,9 @@ class ItemAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<ItemA
     val item = itemList[position]
     holder.itemName.text = item.name
     holder.itemDescription.text = item.description
+    holder.itemView.setOnClickListener {
+      itemClickListener(item)
+    }
   }
 
   override fun getItemCount(): Int = itemList.size

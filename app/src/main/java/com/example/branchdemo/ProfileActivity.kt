@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import io.branch.referral.util.BranchEvent
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -21,4 +22,14 @@ class ProfileActivity : AppCompatActivity() {
     textView.text="Value: $itemId"
 
   }
+
+  override fun onStart() {
+    super.onStart()
+
+    // Track when the main screen is viewed
+    BranchEvent("profile_screen_view")
+      .addCustomDataProperty("screen_name", "Profile Activity")
+      .logEvent(applicationContext)
+  }
+
 }
